@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="Classic Simon Game - Test your memory with this interactive, retro arcade color-matching game. Fully responsive for desktop, tablet, and mobile.">
+  <meta name="theme-color" content="#0a0e1a">
+  <title>Simon Game | Memory Challenge</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="glow-bg glow-1"></div>
+  <div class="glow-bg glow-2"></div>
+
+  <main class="app-wrapper">
+    <!-- Top Header & Scoreboard -->
+    <header class="game-header">
+      <div class="brand">
+        <h1 class="game-logo">SIMON<span class="logo-accent">.</span></h1>
+        <span class="game-subtitle">RETRO ARCADE MEMORY CHALLENGE</span>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-card">
+          <span class="score-label">CURRENT</span>
+          <span class="score-val" id="current-score">0</span>
+        </div>
+        <div class="score-card highlight">
+          <span class="score-label">BEST</span>
+          <span class="score-val" id="high-score">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Game Section -->
+    <section class="game-display">
+      <h2 id="level-title">Press A Key or Tap Start</h2>
+
+      <!-- Quick Action Buttons -->
+      <div class="action-bar">
+        <button id="start-btn" class="action-btn primary-btn" aria-label="Start or restart the game">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          <span id="start-btn-text">START GAME</span>
+        </button>
+        <button id="instructions-btn" class="action-btn secondary-btn" aria-label="View game instructions">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <span>HOW TO PLAY</span>
+        </button>
+      </div>
+
+      <!-- Simon Console Board -->
+      <div class="board-wrapper">
+        <div class="board-console">
+          <div class="simon-grid">
+            <!-- Green Pad -->
+            <button type="button" id="green" class="btn green" aria-label="Green Pad">
+              <span class="key-hint">Q / 1</span>
+            </button>
+
+            <!-- Red Pad -->
+            <button type="button" id="red" class="btn red" aria-label="Red Pad">
+              <span class="key-hint">W / 2</span>
+            </button>
+
+            <!-- Yellow Pad -->
+            <button type="button" id="yellow" class="btn yellow" aria-label="Yellow Pad">
+              <span class="key-hint">A / 3</span>
+            </button>
+
+            <!-- Blue Pad -->
+            <button type="button" id="blue" class="btn blue" aria-label="Blue Pad">
+              <span class="key-hint">S / 4</span>
+            </button>
+          </div>
+
+          <!-- Center Console Accent -->
+          <div class="center-hub">
+            <div class="hub-ring">
+              <span class="hub-title">SIMON</span>
+              <div class="hub-status-light" id="hub-indicator"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer info -->
+    <footer class="game-footer">
+      <p class="footer-tip">Keyboard Shortcuts: <kbd>Q</kbd> <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> or <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> &bull; Tap buttons on Touchscreens</p>
+    </footer>
+  </main>
+
+  <!-- Instructions Modal -->
+  <div class="modal-overlay" id="instructions-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <header class="modal-header">
+        <h3 id="modal-title">How to Play Simon</h3>
+        <button class="modal-close-btn" id="modal-close-btn" aria-label="Close instructions">&times;</button>
+      </header>
+
+      <div class="modal-body">
+        <div class="instruction-step">
+          <div class="step-num">1</div>
+          <div class="step-info">
+            <h4>Watch & Listen</h4>
+            <p>Simon will flash a button and play its distinct audio tone. Memorize the color and order.</p>
+          </div>
+        </div>
+
+        <div class="instruction-step">
+          <div class="step-num">2</div>
+          <div class="step-info">
+            <h4>Repeat the Sequence</h4>
+            <p>Tap, click, or use keyboard keys to repeat the exact sequence Simon just performed.</p>
+          </div>
+        </div>
+
+        <div class="instruction-step">
+          <div class="step-num">3</div>
+          <div class="step-info">
+            <h4>Level Up & Expand</h4>
+            <p>Every round you get right, Simon adds one more step to the pattern. How long can your memory last?</p>
+          </div>
+        </div>
+
+        <div class="instruction-step">
+          <div class="step-num">4</div>
+          <div class="step-info">
+            <h4>Avoid Mistakes</h4>
+            <p>One incorrect tap triggers Game Over! Check your high score and challenge yourself to beat it.</p>
+          </div>
+        </div>
+
+        <div class="controls-summary">
+          <h4>Controls Guide</h4>
+          <ul>
+            <li><strong>Mobile & Tablet:</strong> Tap the colored buttons directly on screen.</li>
+            <li><strong>Desktop:</strong> Mouse click or keyboard shortcuts:
+              <div class="kbd-tags">
+                <span><kbd>Q</kbd> Green</span>
+                <span><kbd>W</kbd> Red</span>
+                <span><kbd>A</kbd> Yellow</span>
+                <span><kbd>S</kbd> Blue</span>
+                <span><kbd>Space</kbd> Start / Restart</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <footer class="modal-footer">
+        <button class="action-btn primary-btn modal-got-it-btn" id="modal-got-it">LET'S PLAY</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
